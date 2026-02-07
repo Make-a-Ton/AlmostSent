@@ -4,6 +4,8 @@ A small place for the messages that never made it. The ones you typed out and de
 
 **Almost Sent** lets you write a note—to someone (by name or initial) and a short message—and leave it in a shared archive. No sign-in, no pressure. Just a quiet corner for the things we almost said.
 
+Inspired by [The Unsent Project](https://theunsentproject.com).
+
 ---
 
 ## What’s in here
