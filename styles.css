@@ -33,7 +33,7 @@ body {
   left: -20px;
   right: -20px;
   bottom: -20px;
-  background: url("/cloud.jpg") no-repeat center center;
+  background: url("cloud.jpg") no-repeat center center;
   background-size: cover;
   z-index: -1;
   transition: transform 0.1s ease-out;
@@ -299,7 +299,7 @@ input::placeholder {
 }
 
 .note-card {
-  background: url("/note-bg.png") center/cover no-repeat;
+  background: url("note-bg.png") center/cover no-repeat;
   border-radius: 8px;
   border: none;
   padding: 18px 20px 24px 56px;

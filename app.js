@@ -201,7 +201,7 @@ if (acceptRulesBtn) {
 const loadEnv = async () => {
   if (window.__ENV) return window.__ENV;
   try {
-    const response = await fetch("/env.json");
+    const response = await fetch("env.json");
     if (!response.ok) return null;
     return await response.json();
   } catch (err) {
