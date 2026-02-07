@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Almost Sent - Our Story</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@300;400;500&family=Patrick+Hand&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="guide-page">
+    <div class="parallax-bg" id="parallax-bg"></div>
+    
+    <header class="site-header">
+      <div class="header-left">
+        <a href="/" class="back-link">← Back to Almost Sent</a>
+      </div>
+    </header>
+
+    <main class="container guide-container">
+      <section class="guide-card">
+        <h1 class="guide-title">The Story Behind Almost Sent</h1>
+        
+        <div class="guide-section">
+          <h2>Why we made this</h2>
+          <p>
+            We've all been there, typing out a message to someone, pouring our heart into every word, 
+            only to delete it before hitting send. Maybe it was too vulnerable. Maybe the timing wasn't right. 
+            Maybe we were afraid of how they'd react.
+          </p>
+          <p>
+            <strong>Almost Sent</strong> is a space for those messages. The ones that never made it. 
+            The confessions, the apologies, the "I miss you"s, and the "I wish I had told you"s that 
+            live quietly in our hearts.
+          </p>
+          <p>
+            But it's not just for the heavy stuff. Maybe you never told someone how much they inspire you. 
+            Maybe you wanted to thank a stranger for their kindness. Maybe you've been meaning to say 
+            "I'm proud of you" or "You made my day", but the moment passed. Those words belong here too.
+          </p>
+          <p>
+            This isn't about getting closure or expecting a response. It's about letting go, 
+            releasing words into the world that were always meant to exist, even if they were never meant to be received.
+          </p>
+        </div>
+
+        <div class="guide-section">
+          <h2>How to use this</h2>
+          <ol class="guide-steps">
+            <li>
+              <strong>Click "Write a note"</strong> on the main page to open the form.
+            </li>
+            <li>
+              <strong>Enter a first name or initial</strong> - just enough to know who it's for. 
+              No full names, no identifiable details. Protect their privacy and yours.
+            </li>
+            <li>
+              <strong>Write your unsent message</strong> - keep it under 200 characters. 
+              Sometimes the most powerful things are said in few words.
+            </li>
+            <li>
+              <strong>Hit submit</strong> - and watch your words join the archive of things 
+              almost said by people just like you.
+            </li>
+          </ol>
+        </div>
+
+        <div class="guide-section">
+          <h2>The rules</h2>
+          <ul class="guide-rules">
+            <li>Be kind. This is a space for vulnerability, not hate.</li>
+            <li>Protect privacy: no full names, phone numbers, or social handles.</li>
+            <li>Keep it heartfelt, not harmful.</li>
+            <li>Write about your feelings, not exposing others.</li>
+            <li>If it feels unsafe to post, don't.</li>
+          </ul>
+        </div>
+
+        <div class="guide-section guide-closing">
+          <p>
+            Every message here represents a moment of courage, the courage to feel, to write, 
+            and to let go. Thank you for being part of this.
+          </p>
+          <a href="/" class="primary-btn">Start Writing</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Inspired from <a href="https://theunsentproject.com" target="_blank" rel="noopener" class="credit-link">The Unsent Project</a></p>
+    </footer>
+
+    <script>
+      // Parallax background effect
+      (function() {
+        const bg = document.getElementById("parallax-bg");
+        if (!bg) return;
+        document.addEventListener("mousemove", (e) => {
+          const x = (e.clientX / window.innerWidth - 0.5) * 20;
+          const y = (e.clientY / window.innerHeight - 0.5) * 20;
+          bg.style.transform = `translate(${x}px, ${y}px)`;
+        });
+      })();
+    </script>
+  </body>
+</html>

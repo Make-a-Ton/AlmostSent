@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Almost Sent</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Quicksand:wght@300;400;500&family=Patrick+Hand&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="parallax-bg" id="parallax-bg"></div>
+    <header class="site-header">
+      <div class="header-left">
+        <h1 id="typing-title"></h1>
+      </div>
+      <a href="/guide.html" class="guide-link">What's this about?</a>
+    </header>
+
+    <main class="container">
+      <section class="submit-section">
+        <button id="toggle-form" class="primary-btn" type="button">Write a note</button>
+        <form id="note-form" class="note-form">
+          <label class="field">
+            <span>To</span>
+            <input id="note-to" type="text" placeholder="First name or initial" maxlength="10" required />
+          </label>
+          <label class="field">
+            <span>Message</span>
+            <textarea
+              id="note-message"
+              rows="5"
+              placeholder="Speak your heart out..."
+              maxlength="200"
+              required
+            ></textarea>
+          </label>
+          <button type="submit" class="primary-btn">Submit</button>
+          <p id="form-status" class="status-text" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="archive">
+        <div class="archive-header">
+          <h2>Archive</h2>
+          <div class="search">
+            <input id="search-input" type="search" placeholder="Search names..." />
+            <button id="refresh-btn" class="ghost-btn" type="button">Refresh</button>
+            <button id="clear-search" class="ghost-btn" type="button">Clear</button>
+          </div>
+        </div>
+        <p id="archive-status" class="status-text" aria-live="polite"></p>
+        <div id="notes-grid" class="notes-grid"></div>
+        <div id="empty-state" class="empty-state hidden">
+          <p>Be the first one to write a letter.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>No explicit content · Respect privacy · Be kind.</p>
+        <p>Inspired from <a href="https://theunsentproject.com" target="_blank" rel="noopener" class="credit-link">The Unsent Project</a></p>
+      </div>
+    </footer>
+
+    <div id="rules-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <h2>Rules of the Diary</h2>
+        <p>Before you read or post, please agree to the rules.</p>
+        <ul class="rules-list">
+          <li>Be kind. No hate, harassment, or targeting.</li>
+          <li>Protect privacy: no full names, numbers, or socials.</li>
+          <li>Keep it heartfelt, not graphic.</li>
+          <li>Write about your feelings, not exposing others.</li>
+          <li>Keep it short and readable (under 200 chars).</li>
+          <li>If it feels unsafe, don't post it.</li>
+        </ul>
+        <button id="accept-rules" class="primary-btn" type="button">I Agree</button>
+      </div>
+    </div>
+
+    <script src="/api/env.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+    <script>
+      const toggleBtn = document.getElementById("toggle-form");
+      const noteForm = document.getElementById("note-form");
+      if (toggleBtn && noteForm) {
+        noteForm.style.display = "none";
+        toggleBtn.addEventListener("click", () => {
+          const isClosed = noteForm.style.display === "none";
+          noteForm.style.display = isClosed ? "grid" : "none";
+          toggleBtn.textContent = isClosed ? "Close" : "Write a note";
+        });
+      }
+
+      // Typing effect for title
+      (function() {
+        const title = document.getElementById("typing-title");
+        const text = "Almost Sent...";
+        let i = 0;
+        let isDeleting = false;
+        const typeSpeed = 120;
+        const deleteSpeed = 80;
+        const pauseEnd = 1500;
+        const pauseStart = 500;
+
+        function type() {
+          if (!isDeleting) {
+            title.textContent = text.slice(0, i + 1);
+            i++;
+            if (i === text.length) {
+              isDeleting = true;
+              setTimeout(type, pauseEnd);
+            } else {
+              setTimeout(type, typeSpeed);
+            }
+          } else {
+            title.textContent = text.slice(0, i - 1);
+            i--;
+            if (i === 0) {
+              isDeleting = false;
+              setTimeout(type, pauseStart);
+            } else {
+              setTimeout(type, deleteSpeed);
+            }
+          }
+        }
+        type();
+      })();
+
+      // Parallax background effect
+      (function() {
+        const bg = document.getElementById("parallax-bg");
+        if (!bg) return;
+        
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        if (isMobile && window.DeviceOrientationEvent) {
+          // Request permission for iOS 13+
+          if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+            document.body.addEventListener('click', function requestGyro() {
+              DeviceOrientationEvent.requestPermission()
+                .then(response => {
+                  if (response === 'granted') {
+                    window.addEventListener('deviceorientation', handleOrientation);
+                  }
+                });
+              document.body.removeEventListener('click', requestGyro);
+            }, { once: true });
+          } else {
+            window.addEventListener('deviceorientation', handleOrientation);
+          }
+          
+          function handleOrientation(e) {
+            const x = Math.max(-15, Math.min(15, e.gamma * 0.5));
+            const y = Math.max(-15, Math.min(15, (e.beta - 45) * 0.5));
+            bg.style.transform = `translate(${x}px, ${y}px)`;
+          }
+        } else {
+          // Desktop: mouse movement
+          document.addEventListener("mousemove", (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            bg.style.transform = `translate(${x}px, ${y}px)`;
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

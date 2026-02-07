@@ -1,0 +1,25 @@
+# Environment and secrets (never commit these)
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor and IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs and temp
+*.log
+npm-debug.log*
+tmp/
+temp/
