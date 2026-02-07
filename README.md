@@ -34,21 +34,6 @@ A small place for the messages that never made it. The ones you typed out and de
 
 ---
 
-## Deploy on GitHub Pages
-
-GitHub Pages only serves static files. So you have two paths:
-
-**Option A — Static only (no live notes from the hosted site)**  
-Push the repo and turn on GitHub Pages for this repo (e.g. “Deploy from branch” → main → `/ (root)` or a `docs` folder). The pages will load, but the app won’t have Supabase keys unless you bake them into the client (not ideal for public repos).
-
-**Option B — Use the static site + your own backend**  
-- Host the static files (e.g. `index.html`, `guide.html`, `app.js`, `styles.css`, images) on GitHub Pages.
-- Run `server.js` somewhere that can serve `env.json` (e.g. a tiny Node host), and point the app at that URL for config, **or** configure the app to read Supabase URL/key from another source (e.g. build-time env in a static host that supports it).
-
-For a quick “demo on GitHub Pages” you can use Option A; for a real “write and read notes” deployment, use Option B and keep your Supabase keys out of the repo.
-
----
-
 ## Tech
 
 - Plain HTML, CSS, JavaScript (no framework).
