@@ -311,6 +311,24 @@ input::placeholder {
   min-height: 200px;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  cursor: pointer;
+}
+
+.note-card.note-card-large {
+  min-height: 260px;
+  aspect-ratio: 3 / 4;
+  padding: 24px 28px 32px 64px;
+  z-index: 1;
+}
+
+.note-card.note-card-large .note-meta {
+  font-size: 1.6rem;
+  margin-top: 6px;
+}
+
+.note-card.note-card-large .note-message {
+  font-size: 1.6rem;
+  margin-top: 18px;
 }
 
 .note-meta {
@@ -326,7 +344,7 @@ input::placeholder {
 
 .note-date {
   position: absolute;
-  top: 4px;
+  top: 10px;
   right: 10px;
   font-size: 0.85rem;
   color: #4a5568;
@@ -603,6 +621,12 @@ input::placeholder {
   display: none;
 }
 
+.note-modal-inner {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+}
+
 .modal-card {
   background: var(--card);
   border-radius: 16px;
@@ -613,6 +637,22 @@ input::placeholder {
   box-shadow: var(--shadow);
   text-align: left;
   position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
 }
 
 .modal-card::after {
@@ -675,13 +715,30 @@ input::placeholder {
     aspect-ratio: 3 / 4;
   }
 
+  /* For the enlarged note on small screens, keep the original tighter layout */
+  .note-card.note-card-large {
+    padding: 18px 20px 24px 56px;
+  }
+
+  .note-card.note-card-large .note-meta {
+    font-size: 1.15rem;
+    margin-top: 4px;
+  }
+
+  .note-card.note-card-large .note-message {
+    /* Make the popped-up note text larger than grid cards on mobile */
+    font-size: 1.2rem;
+    margin-top: 12px;
+  }
+
   .note-meta {
     font-size: 1rem;
     margin-top: -2px;
   }
 
   .note-message {
-    font-size: 1rem;
+    /* Slightly smaller base size for grid cards on mobile */
+    font-size: 0.95rem;
     line-height: 1.65;
     margin-top: 0;
   }
@@ -711,5 +768,16 @@ input::placeholder {
 
   .rules-list {
     font-size: 0.95rem;
+  }
+}
+
+/* Narrower phones: gently shrink archive card text */
+@media (max-width: 480px) {
+  .note-meta {
+    font-size: 0.9rem;
+  }
+
+  .note-message {
+    font-size: 0.85rem;
   }
 }

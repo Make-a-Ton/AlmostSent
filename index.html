@@ -84,6 +84,24 @@
       </div>
     </div>
 
+    <div id="note-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+      <div class="note-modal-inner">
+        <button
+          id="note-modal-close"
+          class="modal-close"
+          type="button"
+          aria-label="Close note"
+        >
+          ×
+        </button>
+        <article class="note-card note-card-large" aria-label="Selected note">
+          <span id="note-modal-date" class="note-date"></span>
+          <div id="note-modal-to" class="note-meta"></div>
+          <p id="note-modal-message" class="note-message"></p>
+        </article>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="app.js"></script>
     <script>

@@ -17,6 +17,11 @@ const refreshBtn = document.getElementById("refresh-btn");
 const clearSearchBtn = document.getElementById("clear-search");
 const rulesModal = document.getElementById("rules-modal");
 const acceptRulesBtn = document.getElementById("accept-rules");
+const noteModal = document.getElementById("note-modal");
+const noteModalClose = document.getElementById("note-modal-close");
+const noteModalMessage = document.getElementById("note-modal-message");
+const noteModalTo = document.getElementById("note-modal-to");
+const noteModalDate = document.getElementById("note-modal-date");
 
 const setStatus = (msg, isError = false) => {
   statusText.textContent = msg;
@@ -68,6 +73,32 @@ const formatDate = (iso) => {
   return `${day}/${month}/${year}`;
 };
 
+const openNoteModal = (note) => {
+  if (!noteModal) return;
+
+  if (noteModalMessage) {
+    noteModalMessage.textContent = note.message || "";
+  }
+
+  if (noteModalTo) {
+    const name = (note.recipient || "You").slice(0, 20);
+    noteModalTo.textContent = `To, ${name}`;
+  }
+
+  if (noteModalDate && note.created_at) {
+    noteModalDate.textContent = formatDate(note.created_at);
+  }
+
+  noteModal.classList.remove("hidden");
+  document.body.classList.add("modal-open");
+};
+
+const closeNoteModal = () => {
+  if (!noteModal) return;
+  noteModal.classList.add("hidden");
+  document.body.classList.remove("modal-open");
+};
+
 const createNoteCard = (note) => {
   const card = document.createElement("article");
   card.className = "note-card";
@@ -88,6 +119,19 @@ const createNoteCard = (note) => {
   card.appendChild(dateEl);
   card.appendChild(toLine);
   card.appendChild(message);
+
+  card.tabIndex = 0;
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-label", `Read note for ${name}`);
+
+  card.addEventListener("click", () => openNoteModal(note));
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openNoteModal(note);
+    }
+  });
+
   return card;
 };
 
@@ -197,6 +241,24 @@ if (clearSearchBtn) {
 if (acceptRulesBtn) {
   acceptRulesBtn.addEventListener("click", acceptRules);
 }
+
+if (noteModalClose) {
+  noteModalClose.addEventListener("click", closeNoteModal);
+}
+
+if (noteModal) {
+  noteModal.addEventListener("click", (event) => {
+    if (event.target === noteModal) {
+      closeNoteModal();
+    }
+  });
+}
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    closeNoteModal();
+  }
+});
 
 const loadEnv = async () => {
   if (window.__ENV) return window.__ENV;
